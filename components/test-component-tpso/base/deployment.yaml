@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/created-by: application-service
+    app.kubernetes.io/instance: test-component-tpso
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: test-component-tpso
+    app.kubernetes.io/part-of: test-app-398
+  name: test-component-tpso
+  namespace: build-templates-e2e
+spec:
+  replicas: 1
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: my-retrodep
+      app.kubernetes.io/instance: test-component-tpso
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: my-retrodep
+        app.kubernetes.io/instance: test-component-tpso
+    spec:
+      containers:
+      - image: quay.io/redhat-appstudio/test-images:3dd013c31ee64b1888b8274ac478fff3
+        name: my-retrodep
+        ports:
+        - containerPort: 8081
+        resources:
+          limits:
+            cpu: 500m
+            memory: 1Gi
+status: {}
